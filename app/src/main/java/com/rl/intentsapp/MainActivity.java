@@ -1,51 +1,70 @@
 package com.rl.intentsapp;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button;
-    EditText editText;
+
+    private static final String TAG = "MainActivity";
+    TextView textView;
+    Button btn_get_result;
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Log.d(TAG, "onActivityResult:");
+
+                    if(result.getResultCode() == 80){
+
+                        Intent intent = result.getData();
+
+                        if(intent != null){
+
+                            String data = intent.getStringExtra("result");
+
+                            textView.setText(data);
+                        }
+                    }
+
+
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = findViewById(R.id.btn_visit);
-        editText = findViewById(R.id.et_visit);
+        textView = findViewById(R.id.tv_result);
+        btn_get_result = findViewById(R.id.btn_getResult);
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        btn_get_result.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-            Intent i = new Intent(getApplicationContext(),SecondActivity.class);
-            i.putExtra("value1","Android Data");
-            startActivity(i);
-            startActivityForResult(i,2);
-
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                activityResultLauncher.launch(intent);
             }
         });
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode ==2){
-            String message = data.getStringExtra("MESSAGE");
-
-        }
 
 
     }
+
 }

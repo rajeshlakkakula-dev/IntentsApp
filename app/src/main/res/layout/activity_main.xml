@@ -6,27 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-   <EditText
-       android:id="@+id/et_visit"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_margin="25dp"
-       android:maxLines="1"
-       app:layout_constraintBottom_toTopOf="@id/btn_visit"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintVertical_bias="0.47000003" />
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Empty Result"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@id/btn_getResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-   <Button
-       android:id="@+id/btn_visit"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Visit to Next Activity"
-       android:textAllCaps="false"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintHorizontal_bias="0.51"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/et_visit"
-       app:layout_constraintVertical_bias="0.0" />
+    <Button
+        android:id="@+id/btn_getResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Result"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_result"
+
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
